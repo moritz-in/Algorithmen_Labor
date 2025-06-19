@@ -4,120 +4,152 @@ Java code in C++ Code verwandelt:
 
 
 /******************************  TreeTools.cpp  ******************************/
+
 /**
- * Tool-Klasse mit einigen Algorithmen fuer Baeume (C++ Version)
- */
+* Tool-Klasse mit einigen Algorithmen fuer Baeume
+*/
 
-#include <iostream>
-#include <vector>
-#include <stack>
-#include <cmath>
-
-using namespace std;
-
-// Einfache Baumstruktur als Annahme
-class Tree {
+class TreeTools {
 public:
-    int val;
-    Tree* leftChild;
-    Tree* rightChild;
 
-    Tree(int value) : val(value), leftChild(nullptr), rightChild(nullptr) {}
+    /**
+    * Ermittelt die Hoehe eines Baumes
+    * @param b der zu uebergebende Baum
+    * @return Hoehe des Baumes
+    */
+    static int treeHeight(Tree* b) {
+        // TODO
 
-    int value() const { return val; }
-    Tree* left() const { return leftChild; }
-    Tree* right() const { return rightChild; }
-    bool empty() const { return this == nullptr; } // kann bei nullptr geprüft werden
-};
+    }
 
-// TreeTools-ähnliche Funktionen
+    /**
+    * Ermittelt die Anzahl der Knoten eines Baumes
+    * @param b der zu uebergebende Baum
+    * @return Anzahl der Knoten des Baumes
+    */
+    static int anzahlKnoten(Tree* b) {
+        // TODO
 
-int treeHeight(Tree* b) {
-    if (!b) return 0;
-    return 1 + max(treeHeight(b->left()), treeHeight(b->right()));
-}
+    }  
 
-int anzahlKnoten(Tree* b) {
-    if (!b) return 0;
-    return 1 + anzahlKnoten(b->left()) + anzahlKnoten(b->right());
-}
+    /**
+    * gibt den übergebenen Baum in Inorder-Traversierung mit Klammerung aus
+    * @param b der zu uebergebende Baum
+    */
+    static void printTreeInorderWithParenthesis(Tree* b) {
+        // TODO
 
-void printTreeInorderWithParenthesis(Tree* b) {
-    if (!b) return;
-    cout << "(";
-    printTreeInorderWithParenthesis(b->left());
-    cout << b->value();
-    printTreeInorderWithParenthesis(b->right());
-    cout << ")";
-}
+    }  
 
-void printTreeLevelorder(Tree* b) {
-    if (!b) return;
-    vector<Tree*> queue{b};
-    while (!queue.empty()) {
-        Tree* current = queue.front();
-        queue.erase(queue.begin());
-        if (current) {
-            cout << current->value() << " ";
-            queue.push_back(current->left());
-            queue.push_back(current->right());
+    /**
+    * gibt den übergebenen Baum in Levelorder-Traversierung aus
+    * @param b der zu uebergebende Baum
+    */
+    static void printTreeLevelorder(Tree* b) {
+        // TODO
+
+    }  
+
+    /**
+    * Sortiert gegebene Zahlenfolge per Suchbaum
+    * @param zahlen zu sortierende Zahlenfolge
+    * @return sortierte Folge
+    */
+    static int* searchTreeSort(int* zahlen) {
+        // TODO
+
+    }  
+
+    /**
+    * Helfermethode zum sortieren von Elementen im SearchTree
+    * @param b SearchTree mit zu sortierendem Inhalt
+    * @param k Stack in den der SearchTree Inhalt sortiert werden soll
+    */
+    static void tree2SortedStack(Tree* b, Stack* k) {
+        // TODO 
+
+    }
+
+    /**
+    * Druckt einen Baum auf der Konsole ebenenweise aus.
+    * Nutzt treeHeight(Tree), printLevel(Tree,int,int) und spaces(int).
+    * @param b der zu druckende Baum
+    */
+    static void printTree(Tree* b) {
+
+        // Berechne die Hoehe des Baumes
+        int resthoehe = treeHeight(b);
+
+        //Gehe die Ebenen des Baumes durch
+        for (int i = 0; i < resthoehe; i++) {
+            //Drucke die Ebene, beruecksichtige Anzahl der Leerzeichen
+            //fuer korrekte Einrueckung
+            printLevel(b, i, spaces(resthoehe - i));
+            std::cout << std::endl;
+            std::cout << std::endl;
         }
     }
-    cout << endl;
-}
 
-void tree2SortedStack(Tree* b, stack<int>& k) {
-    if (!b) return;
-    tree2SortedStack(b->right(), k);
-    k.push(b->value());
-    tree2SortedStack(b->left(), k);
-}
+    /**
+    * Druckt eine Ebene eines Baumes aehnlich der Breitensuche.
+    * 0 ist dabei die Wurzel. Vor und nach jedem Element werden Leerzeichen 
+    * eingefuegt.
+    * @param b der auszugebende Baum
+    * @param ebene die gewuenschte Ebene beginnend bei 0
+    * @param spaces Anzahl von Leerzeichen vor und nach jedem Element
+    */
+    static void printLevel(Tree* b, int level, int spaces) {
 
-int* searchTreeSort(const vector<int>& zahlen) {
-    Tree* root = nullptr;
+        // Wenn 0 erreicht, drucke Element mit Leerzeichen
+        if (level == 0) {
 
-    // Hilfsfunktion zum Einfügen
-    auto insert = [](Tree*& node, int val) {
-        if (!node) node = new Tree(val);
-        else if (val < node->value()) insert(node->leftChild, val);
-        else insert(node->rightChild, val);
-    };
+            for (int i = 0; i < spaces; i++) std::cout << " ";
+            if (b != nullptr) {
+                std::cout << b->value();
+            }
+            else { // Wenn Nullzeiger uebergeben wurde, ein Leerzeichen drucken
+                std::cout << " ";
+            }
+            for (int i = 0; i <= spaces; i++) 
+                std::cout << " ";
 
-    for (int num : zahlen)
-        insert(root, num);
+        } else {
 
-    stack<int> s;
-    tree2SortedStack(root, s);
+            // Steige rekursiv ab, betrachte Soehne als Teilbaeume und verringere
+            // dabei die zu druckende Ebene. In endende Aeste wird mit dem Nullzeiger
+            // gelaufen.
+            if (b != nullptr && !b->left()->empty()) {
+                printLevel(b->left(), level - 1, spaces);
+            }
+            else {
+                printLevel(nullptr, level - 1, spaces);
+            }
 
-    int* result = new int[s.size()];
-    for (size_t i = 0; i < s.size(); ++i) {
-        result[i] = s.top();
-        s.pop();
+            if (b != nullptr && !b->right()->empty()) {
+                printLevel(b->right(), level - 1, spaces);
+            }
+            else {
+                printLevel(nullptr, level - 1, spaces);
+            }
+        }
     }
-    return result;
-}
 
-int spaces(int level) {
-    if (level == 1) return 0;
-    return 2 * spaces(level - 1) + 1;
-}
+    /**
+    * Berechnet die Anzahl an benoetigten Leerzeichen fuer
+    * eine korrekte Einrueckung, also 0.5 * (2^(level) - 2).
+    * @param level die Ebene, Blaetter sind Ebene 1, darueber aufsteigend
+    * @return Anzahl der Leerzeichen zur Elementtrennung
+    */
+    static int spaces(int level) {
 
-void printLevel(Tree* b, int level, int spaceCount) {
-    if (level == 0) {
-        for (int i = 0; i < spaceCount; i++) cout << " ";
-        if (b) cout << b->value();
-        else cout << " ";
-        for (int i = 0; i <= spaceCount; i++) cout << " ";
-    } else {
-        printLevel(b && b->left() ? b->left() : nullptr, level - 1, spaceCount);
-        printLevel(b && b->right() ? b->right() : nullptr, level - 1, spaceCount);
+        if (level == 1) {
+            return 0;
+        }
+        else {
+            // verdoppele die Leerzeichen gegenueber der Ebene darunter
+            // und fuege ein weiteres Leerzeichen hinzu
+            return 2 * spaces(level - 1) + 1;
+        }
     }
-}
+};
 
-void printTree(Tree* b) {
-    int height = treeHeight(b);
-    for (int i = 0; i < height; i++) {
-        printLevel(b, i, spaces(height - i));
-        cout << "\n\n";
-    }
-}
