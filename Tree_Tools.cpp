@@ -49,7 +49,12 @@ public:
     */
 
     static void printTreeInorderWithParenthesis(LinkedTree *b) {
-        // TODO
+        if (b == nullptr) return;
+        std::cout << "(";
+        printTreeInorderWithParenthesis(b->left);
+        std::cout << b->value;
+        printTreeInorderWithParenthesis(b->right);
+        std::cout << ")";
     }
 
 
