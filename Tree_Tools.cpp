@@ -73,21 +73,35 @@ public:
     * @param zahlen zu sortierende Zahlenfolge
     * @return sortierte Folge
     */
-    static int *searchTreeSort(int *zahlen) {
-        // TODO
-    }
+    static int* searchTreeSort(int* zahlen, int size) {
+        LinkedTree* root = nullptr;
+        for (int i = 0; i < size; ++i)
+            root = insert(root, zahlen[i]);
 
+        std::stack<int> k;
+        tree2SortedStack(root, k);          // jetzt korrekt befüllt
+
+        int* res = new int[size];
+        for (int i = size - 1; i >= 0; --i) { // weil größter oben liegt
+            res[i] = k.top();
+            k.pop();
+        }
+
+        deleteTree(root);                    // <<< Speicher wieder frei
+        return res;
+    }
     /**
     * Helfermethode zum sortieren von Elementen im SearchTree
     * @param b SearchTree mit zu sortierendem Inhalt
     * @param k Stack in den der SearchTree Inhalt sortiert werden soll
     */
-    /*
-    static void tree2SortedStack(LinkedTree* b, Stack* k) {
-        // TODO
 
+    static void tree2SortedStack(LinkedTree* b, std::stack<int>& k) {
+        if (!b) return;
+        tree2SortedStack(b->left,  k);   // kleiner
+        k.push(b->value);                // Wurzel
+        tree2SortedStack(b->right, k);   // größer
     }
-    */
 
     /**
     * Druckt einen Baum auf der Konsole ebenenweise aus.
@@ -160,5 +174,19 @@ public:
             // und fuege ein weiteres Leerzeichen hinzu
             return 2 * spaces(level - 1) + 1;
         }
+    }
+
+    static LinkedTree* insert(LinkedTree* node, int val) {
+        if (node == nullptr) return new LinkedTree(val);
+        if (val < node->value) node->left = insert(node->left, val);
+        else node->right = insert(node->right, val);
+        return node;
+    }
+
+    static void deleteTree(LinkedTree* root) {
+        if (root == nullptr) return;
+        deleteTree(root->left);
+        deleteTree(root->right);
+        delete root;
     }
 };

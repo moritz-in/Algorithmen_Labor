@@ -39,14 +39,15 @@ int main() {
 
     // Testet searchTreeSort()
 
-    //    std::cout << "Sortiere  6194283" << std::endl;
-    //    int a[] = {6,1,9,4,2,8,3};
-    //    int* sorted = TreeTools::searchTreeSort(a);
-    //    std::cout << "Ergebnis (sollte 1234689 sein): ";
-    //    for(int i = 0; i < sizeof(a)/sizeof(int); i++)
-    //      std::cout << sorted[i];
+    std::cout << "Sortiere  6194283" << std::endl;
+    int z[] = {6,1,9,4,2,8,3};
+    int* sorted = TreeTools::searchTreeSort(z, sizeof(z));
+    std::cout << "Ergebnis (sollte 1234689 sein): ";
+    for(int i = 0; i < sizeof(a)/sizeof(int); i++)
+    std::cout << sorted[i];
 
     std::cout << std::endl;
+
 
     return 0;
 }
