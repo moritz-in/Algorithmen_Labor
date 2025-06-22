@@ -26,6 +26,7 @@ int main() {
     std::cout << "Anzahl Knoten laut Methode (sollte 9 sein): "
                   << TreeTools::anzahlKnoten(d) << std::endl;
     TreeTools::printTreeInorder(d);
+    std::cout <<std::endl;
     //
         std::cout << "Ausdruck mit Klammerung: ";
         TreeTools::printTreeInorderWithParenthesis(d);
