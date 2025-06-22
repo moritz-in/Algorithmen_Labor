@@ -27,9 +27,9 @@ int main() {
                   << TreeTools::anzahlKnoten(d) << std::endl;
     TreeTools::printTreeInorder(d);
     //
-    //    std::cout << "Ausdruck mit Klammerung: ";
-    //    TreeTools::printTreeInorderWithParenthesis(d);
-    //    std::cout << std::endl;
+        std::cout << "Ausdruck mit Klammerung: ";
+        TreeTools::printTreeInorderWithParenthesis(d);
+        std::cout << std::endl;
     //
     //    std::cout << "Baum ebenenweise: ";
     //    TreeTools::printTreeLevelorder(d);
