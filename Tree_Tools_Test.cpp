@@ -32,9 +32,9 @@ int main() {
         TreeTools::printTreeInorderWithParenthesis(d);
         std::cout << std::endl;
     //
-    //    std::cout << "Baum ebenenweise: ";
-    //    TreeTools::printTreeLevelorder(d);
-    //    std::cout << std::endl;
+    std::cout << "Baum ebenenweise: ";
+    TreeTools::printTreeLevelorder(d);
+    std::cout << std::endl;
 
 
     // Testet searchTreeSort()

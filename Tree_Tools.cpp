@@ -63,7 +63,9 @@ public:
     * @param b der zu uebergebende Baum
     */
     static void printTreeLevelorder(LinkedTree *b) {
-        // TODO
+        for (int i = 0; i < treeHeight(b); i++) {
+            printLevel(b, i, 0 );
+        }
     }
 
     /**
