@@ -1,4 +1,5 @@
 #include <iostream>
+#include <random>
 
 struct LinkedTree {
     char value;
@@ -189,4 +190,20 @@ public:
         deleteTree(root->right);
         delete root;
     }
+
+    static LinkedTree* createRandomSearchTree(int n) {
+        std::vector<int> values(n);
+        for (int i = 0; i < n; ++i) values[i] = i + 1;
+
+        std::random_device rd;
+        std::mt19937 g(rd());
+        std::shuffle(values.begin(), values.end(), g);
+
+        LinkedTree* root = nullptr;
+        for (int val : values) {
+            root = insert(root, val);
+        }
+        return root;
+    }
 };
+

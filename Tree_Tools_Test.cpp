@@ -1,6 +1,37 @@
 #include <iostream>
 #include "Tree_Tools.cpp"
 
+#include <iomanip>
+
+void testHoeheZufaelligerSuchbaeume() {
+    int anzahlKnoten, anzahlDurchlaeufe;
+    std::cout << "Anzahl der Knoten: ";
+    std::cin >> anzahlKnoten;
+
+    std::cout << "Anzahl der Durchläufe: ";
+    std::cin >> anzahlDurchlaeufe;
+
+    double gesamtHoehe = 0.0;
+
+    std::cout << "\nErzeuge " << anzahlDurchlaeufe << " Suchbäume mit je " << anzahlKnoten << " Knoten\n\n";
+
+    for (int i = 1; i <= anzahlDurchlaeufe; ++i) {
+        LinkedTree* zufallsbaum = TreeTools::createRandomSearchTree(anzahlKnoten);
+        int hoehe = TreeTools::treeHeight(zufallsbaum);
+        std::cout << "Höhe Suchbaum " << i << ": " << hoehe << std::endl;
+        gesamtHoehe += hoehe;
+    }
+
+    double durchschnitt = gesamtHoehe / anzahlDurchlaeufe;
+    double log2n = std::log2(anzahlKnoten);
+    double c = durchschnitt / log2n;
+
+    std::cout << std::fixed << std::setprecision(2);
+    std::cout << "\nDurchschnittliche Höhe: " << durchschnitt
+              << " (entspricht " << c << " * log2 n)\n";
+}
+
+
 int main() {
 
     // Erzeuge einen Test-Baum
@@ -48,6 +79,7 @@ int main() {
 
     std::cout << std::endl;
 
+    testHoeheZufaelligerSuchbaeume();
 
     return 0;
 }
