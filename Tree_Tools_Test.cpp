@@ -72,10 +72,13 @@ int main() {
 
     std::cout << "Sortiere  6194283" << std::endl;
     int z[] = {6,1,9,4,2,8,3};
-    int* sorted = TreeTools::searchTreeSort(z, sizeof(z));
+
+    int* sorted = TreeTools::searchTreeSort(z, sizeof(z)/sizeof(int));
+
     std::cout << "Ergebnis (sollte 1234689 sein): ";
-    for(int i = 0; i < sizeof(a)/sizeof(int); i++)
-    std::cout << sorted[i];
+
+    for(int i = 0; i < sizeof(z)/sizeof(int); i++)
+        std::cout << sorted[i];
 
     std::cout << std::endl;
 
